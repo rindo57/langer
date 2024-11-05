@@ -21,7 +21,7 @@ translator = Translator()
 def start(client, message):
     message.reply_text("Welcome to the Translator Bot! Send me a message to translate.")
 
-@app.on_message(filters.text & ~filters.command())
+@app.on_message(filters.text & ~filters.command(["start"]))
 def translate_text(client, message):
     text_to_translate = message.text
     dest_language = 'en'  # Default destination language
