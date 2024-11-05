@@ -29,7 +29,7 @@ def translate_text(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     # Replace 'YOUR_TOKEN' with your bot's API token
-    updater = Updater("8117827824:AAF6JuMOTeZd-Y_vuUsaRIE5lctvZYOfvPU")
+    updater = Updater("8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw")
 
     dispatcher = updater.dispatcher
 
