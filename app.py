@@ -40,7 +40,7 @@ async def translate_text(client, message):
         text_to_translate = " ".join(args[1:])
 
         # Translate the text
-        translation = translator.translate(text_to_translate, dest=target_language)
+        translation = translator.translate(text_to_translate, dest="ar")
 
         # Send the translated text
         print(translation)
