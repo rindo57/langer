@@ -10,13 +10,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 translator = Translator()
 
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Welcome to the Translator Bot! Send me a message and I will translate it.')
+    update.message.reply_text('Welcome to the Translator Bot! Send me a message and I will translate it. Use /translate  to translate.')
 
 def translate_text(update: Update, context: CallbackContext) -> None:
+    # Get the text from the incoming message
     text_to_translate = update.message.text
-    dest_language = 'en'  # Default destination language can be set here
+    dest_language = 'en'  # Default destination language
 
-    # Check for language code in the message
+    # Check for language code in the command arguments
     if len(context.args) > 0:
         dest_language = context.args[0]  # Get the language code from user input
 
@@ -28,7 +29,7 @@ def translate_text(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     # Replace 'YOUR_TOKEN' with your bot's API token
-    updater = Updater("8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw")
+    updater = Updater("8117827824:AAF6JuMOTeZd-Y_vuUsaRIE5lctvZYOfvPU")
 
     dispatcher = updater.dispatcher
 
