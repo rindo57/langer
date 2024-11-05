@@ -7,6 +7,12 @@ API_ID = "10247139"
 API_HASH = "96b46175824223a33737657ab943fd6a"
 BOT_TOKEN = "8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw"
 
+
+
+
+# Replace these with your own credentials
+
+
 app = Client("translator_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 translator = Translator()
@@ -15,7 +21,7 @@ translator = Translator()
 def start(client, message):
     message.reply_text("Welcome to the Translator Bot! Send me a message to translate.")
 
-@app.on_message(filters.text & ~filters.command)
+@app.on_message(filters.text & ~filters.command())
 def translate_text(client, message):
     text_to_translate = message.text
     dest_language = 'en'  # Default destination language
