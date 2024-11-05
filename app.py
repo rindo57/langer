@@ -17,11 +17,12 @@ from googletrans import Translator
 
 
 # Create a Pyrogram client
-app = Client("my_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+
 API_ID = "10247139"
 API_HASH = "96b46175824223a33737657ab943fd6a"
 BOT_TOKEN = "8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw"
 # Initialize the Google Translate translator
+app = Client("my_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 translator = Translator()
 
 @app.on_message(filters.command(["translate", "tr"]))
