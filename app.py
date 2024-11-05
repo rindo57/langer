@@ -1,43 +1,38 @@
 
-import logging
+from pyrogram import Client, filters
 from googletrans import Translator
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
-# Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+# Replace these with your own credentials
+API_ID = "10247139"
+API_HASH = "96b46175824223a33737657ab943fd6a"
+BOT_TOKEN = "8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw"
+
+app = Client("translator_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 translator = Translator()
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Welcome to the Translator Bot! Send me a message and I will translate it. Use /translate  to translate.')
+@app.on_message(filters.command("start"))
+def start(client, message):
+    message.reply_text("Welcome to the Translator Bot! Send me a message to translate.")
 
-def translate_text(update: Update, context: CallbackContext) -> None:
-    # Get the text from the incoming message
-    text_to_translate = update.message.text
+@app.on_message(filters.text & ~filters.command)
+def translate_text(client, message):
+    text_to_translate = message.text
     dest_language = 'en'  # Default destination language
 
-    # Check for language code in the command arguments
-    if len(context.args) > 0:
-        dest_language = context.args[0]  # Get the language code from user input
+    # Check if the first word in the message is a language code
+    words = text_to_translate.split()
+    if words:
+        # Check if the first word is a valid language code
+        if len(words[0]) == 2:  # Assuming language codes are 2 characters long
+            dest_language = words[0]
+            text_to_translate = ' '.join(words[1:])  # Remove the language code from the text
 
     try:
         translated = translator.translate(text_to_translate, dest=dest_language)
-        update.message.reply_text(f'Translated Text: {translated.text}')
+        message.reply_text(f'Translated Text: {translated.text}')
     except Exception as e:
-        update.message.reply_text(f'Error: {str(e)}')
+        message.reply_text(f'Error: {str(e)}')
 
-def main() -> None:
-    # Replace 'YOUR_TOKEN' with your bot's API token
-    updater = Updater("8117827824:AAHmkbcHHyYTldbgwOHsLMlR7D9Xrzihvvw")
-
-    dispatcher = updater.dispatcher
-
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, translate_text))
-
-    updater.start_polling()
-    updater.idle()
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    app.run()
