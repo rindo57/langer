@@ -43,8 +43,9 @@ async def translate_text(client, message):
         translation = translator.translate(text_to_translate, dest=target_language)
 
         # Send the translated text
+        print(translation)
         await message.reply(f"*Translation to {target_language}:*\n{translation.text}")
-
+       
     except Exception as e:
         await message.reply(f"An error occurred: {e}")
 
